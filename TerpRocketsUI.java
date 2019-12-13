@@ -30,6 +30,10 @@ import javafx.stage.WindowEvent;
 
 import java.text.SimpleDateFormat;
 import java.io.*;
+
+/* The webpage I based the graphs on:
+* https://levelup.gitconnected.com/realtime-charts-with-javafx-ed33c46b9c8d
+*/
 public class TerpRocketsUI extends Application{
 	
 	Series<String, Number> altSeries = new XYChart.Series<>();
