@@ -33,6 +33,8 @@ import java.io.*;
 
 /* The webpage I based the graphs on:
 * https://levelup.gitconnected.com/realtime-charts-with-javafx-ed33c46b9c8d
+*
+* Example GUI with changing graph
 */
 public class TerpRocketsUI extends Application{
 	
