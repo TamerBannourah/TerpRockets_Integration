@@ -175,6 +175,13 @@ public class TerpRocketsUI extends Application{
             // Update the chart
             Platform.runLater(() -> {
             	//add next step of data
+            	
+            	//keep the window size down first
+            	final int WINDOW_SIZE = 10;
+            	if (altSeries.getData().size() > WINDOW_SIZE)
+            		altSeries.getData().remove(0);
+            	if (velSeries.getData().size() > WINDOW_SIZE)
+            		velSeries.getData().remove(0);
                 altSeries.getData().add(new XYChart.Data<>(time, val));
                 velSeries.getData().add(new XYChart.Data<>(time, val));
                 currentAlt.setText("Current Alt: " + val.toString());
