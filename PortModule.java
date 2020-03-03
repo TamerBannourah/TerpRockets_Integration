@@ -11,9 +11,9 @@ public class PortModule {
 	
 	public PortModule() {
 		comPort = SerialPort.getCommPorts()[0];
-        comPort.openPort();
-        comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
-        in = comPort.getInputStream();
+        	comPort.openPort();
+        	comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
+        	in = comPort.getInputStream();
 	}
 	
 	public ArrayList<Character> readNTimes(int n) {
