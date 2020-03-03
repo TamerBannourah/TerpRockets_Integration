@@ -6,10 +6,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
-
 import javafx.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -27,7 +27,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 import java.text.SimpleDateFormat;
 import java.io.*;
 
@@ -60,19 +59,17 @@ public class TerpRocketsUI extends Application{
 			zeroOut = true;
 		}
 		
-		primarystage.setTitle("Command and Control");
+		//test stand UI Object
+		TestStandUI testStandUI = new TestStandUI();
 		
+		
+		primarystage.setTitle("Command and Control");
+		LineChart<String, Number> altChart = makeAltGraph();
+        LineChart<String, Number> velChart = makeVelGraph();
 		
         BorderPane border = new BorderPane();
         
         VBox chartsVBox = new VBox();
-        HBox timeHBox = new HBox();
-        
-        //create the charts
-        LineChart<String, Number> altChart = makeAltGraph();
-        LineChart<String, Number> velChart = makeVelGraph();
-        chartsVBox.setSpacing(60);
-        
         //move, set color and add chart
         chartsVBox.setTranslateX(-30.0);
         chartsVBox.setTranslateY(0.0);
@@ -80,6 +77,21 @@ public class TerpRocketsUI extends Application{
         
         chartsVBox.getChildren().add(altChart);
         chartsVBox.getChildren().add(velChart);
+        
+        HBox timeHBox = new HBox();
+        
+        Button sceneButton = new Button();
+        sceneButton.minWidth(150.0);
+        sceneButton.minHeight(100.0);
+        sceneButton.setTranslateX(50);
+        sceneButton.setTranslateY(25);
+        sceneButton.setText("Switch to Test Stand");
+        
+        //create the charts
+        
+        chartsVBox.setSpacing(60);
+        
+        
         
         
         
@@ -90,9 +102,10 @@ public class TerpRocketsUI extends Application{
         masterTime.setStyle("-fx-background-color: #e80000");
         currentAlt.setFont(Font.font(50));
         currentAlt.setStyle("-fx-background-color: #e80000");
-        
+        timeHBox.getChildren().add(sceneButton);
         timeHBox.getChildren().add(masterTime);
         timeHBox.getChildren().add(currentAlt);
+        
         
         timeHBox.setSpacing(50);
         
@@ -104,7 +117,10 @@ public class TerpRocketsUI extends Application{
      
        	
        Scene scene = new Scene(border, 1900, 1000);
-       border.getTop().setTranslateX((scene.getWidth()/2) - 100);
+       //BorderPane testStandBorder = new BorderPane();
+       
+      // Scene testStandScn = new Scene(testStandBorder, 1900, 1000);
+       border.getTop().setTranslateX((scene.getWidth()/2) - 300);
        primarystage.setScene(scene);
      // primarystage.setFullScreen(true);
        
@@ -115,6 +131,24 @@ public class TerpRocketsUI extends Application{
     		   Platform.exit();
     		   System.exit(0);
     	   }
+       });
+       
+       //Switches to RocketUI
+       testStandUI.getSwitchToRocketButton().setOnAction(new EventHandler<ActionEvent>() {
+    	   @Override public void handle(ActionEvent e) {
+   	        //border.setVisible(false);
+   	        primarystage.setScene(scene);
+   	    }
+   	   
+      });
+       
+       //switches to TestStand
+       sceneButton.setOnAction(new EventHandler<ActionEvent>() {
+    	   @Override public void handle(ActionEvent e) {
+    	        //border.setVisible(false);
+    	        primarystage.setScene(testStandUI.getScene());
+    	    }
+    	   
        });
         
 		primarystage.show();
