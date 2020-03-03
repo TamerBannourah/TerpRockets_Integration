@@ -18,9 +18,13 @@ public class PortModule {
         	open = true;
 	}
 	
-	public void closeStream() {
+	public void closePort() {
 		open = false;
 		comPort.closePort();
+	}
+	
+	public InputStream getStream() {
+		return in;
 	}
 	
 	public ArrayList<Character> readNTimes(int n) {
