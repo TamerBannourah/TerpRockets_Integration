@@ -8,15 +8,24 @@ public class PortModule {
 	
 	private InputStream in;
 	private SerialPort comPort;
+	private boolean open;
 	
 	public PortModule() {
 		comPort = SerialPort.getCommPorts()[0];
         	comPort.openPort();
         	comPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
         	in = comPort.getInputStream();
+        	open = true;
+	}
+	
+	public void closeStream() {
+		open = false;
+		comPort.closePort();
 	}
 	
 	public ArrayList<Character> readNTimes(int n) {
+		if(open == false)
+			throw new Exception("Port is closed!");
 		ArrayList<Character> ret = new ArrayList<Character>();
 		for(int i = 0; i < n; i++) {
 			try {
