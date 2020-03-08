@@ -151,7 +151,7 @@ public class TerpRocketsUI extends Application{
     	   @Override public void handle(ActionEvent e) {
    	       //close port
            // save data to csv in directory that exe is in
-   	        
+   	        //enable switch button
    	    }
    	   
       });
