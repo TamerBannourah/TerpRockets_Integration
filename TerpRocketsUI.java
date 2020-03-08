@@ -121,7 +121,9 @@ public class TerpRocketsUI extends Application{
        
       // Scene testStandScn = new Scene(testStandBorder, 1900, 1000);
        border.getTop().setTranslateX((scene.getWidth()/2) - 300);
-       primarystage.setScene(scene);
+       
+       //inital stage set on startup
+       primarystage.setScene(testStandUI.getScene());
      // primarystage.setFullScreen(true);
        
        //terminates the program on hitting the 'close' button
@@ -132,6 +134,27 @@ public class TerpRocketsUI extends Application{
     		   System.exit(0);
     	   }
        });
+       
+       //Test stand Start Button Action
+       testStandUI.getStartTestButton().setOnAction(new EventHandler<ActionEvent>() {
+    	   @Override public void handle(ActionEvent e) {
+   	       //create new portModule
+    		// disable switch button
+    		   //record data to a data struct
+   	        
+   	    }
+   	   
+      });
+       
+       //Test stand Stop Button Action 
+       testStandUI.getStopTestButton().setOnAction(new EventHandler<ActionEvent>() {
+    	   @Override public void handle(ActionEvent e) {
+   	       //close port
+           // save data to csv in directory that exe is in
+   	        
+   	    }
+   	   
+      });
        
        //Switches to RocketUI
        testStandUI.getSwitchToRocketButton().setOnAction(new EventHandler<ActionEvent>() {

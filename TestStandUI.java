@@ -36,9 +36,22 @@ public class TestStandUI {
 	private VBox rightGraphVBox;
 	private HBox topHBox;
 	private HBox bottomHBox;
+	
 	private Button switchToRocketButton;
+	private Button startDataRecord;
+	private Button stopDataRecord;
+	
 	Series<String, Number> pressureSeries = new XYChart.Series<>();
+	Series<String, Number> forceOneSeries = new XYChart.Series<>();
+	Series<String, Number> forceTwoSeries = new XYChart.Series<>();
+	Series<String, Number> forceThreeSeries = new XYChart.Series<>();
+	
 	LineChart<String, Number> pressureChart;
+	LineChart<String, Number> forceOneChart;
+	LineChart<String, Number> forceTwoChart;
+	LineChart<String, Number> forceThreeChart;
+	
+	
 	
 	/*
 	 * Have start stop and switch buttons
@@ -66,18 +79,27 @@ public class TestStandUI {
 		 rightGraphVBox = new VBox();
 		 topHBox = new HBox();
 		 bottomHBox = new HBox();
-		 standScene = new Scene(standBorder, 1920, 1080);
+		 standScene = new Scene(standBorder, 1900, 1000);
 		 
 		 switchToRocketButton = new Button();
+		 startDataRecord = new Button();
+		 stopDataRecord = new Button();
+		 
 		 //create charts
 		 pressureChart = makePressureGraph();
+		 forceOneChart = makeForceOneGraph();
+		 forceTwoChart = makeForceTwoGraph();
+		 forceThreeChart = makeForceThreeGraph();
 		 
+		 //set styles
 		 mainGraphHBox.setStyle("-fx-background-color: #42f563");
 		 topHBox.setStyle("-fx-background-color: #643433");
 		 leftGraphVBox.setStyle("-fx-background-color: #893764");
 		 rightGraphVBox.setStyle("-fx-background-color: #12EAD1");
 		 BuildUI();
 		 switchButtonSettings();
+		 startButtonSettings();
+		 stopButtonSettings();
 	}
 	
 	
@@ -102,13 +124,64 @@ public class TestStandUI {
         xAxis.setAnimated(true); 
         yAxis.setLabel("Pressure (PSI)");
         yAxis.setAnimated(true); 
-        LineChart<String, Number> pressureChart = new LineChart(xAxis, yAxis);
+        LineChart<String, Number> pressureChart = new LineChart<String, Number>(xAxis, yAxis);
         pressureChart.setTitle("Tank Pressure");
         pressureChart.setAnimated(false);
         pressureSeries.setName("Tank Pressure Data");
         pressureChart.getData().add(pressureSeries);
         pressureSeries.getData().add(new XYChart.Data<>("0", 0));
         return pressureChart;
+		
+	}
+	
+	private LineChart<String, Number> makeForceOneGraph(){
+		final CategoryAxis  xAxis = new CategoryAxis(); 
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Time (s)");
+        xAxis.setAnimated(true); 
+        yAxis.setLabel("Force One (N)");
+        yAxis.setAnimated(true); 
+        LineChart<String, Number> forceOneChart = new LineChart<String, Number>(xAxis, yAxis);
+        forceOneChart.setTitle("Force One");
+        forceOneChart.setAnimated(false);
+        forceOneSeries.setName("Force One Data");
+        forceOneChart.getData().add(forceOneSeries);
+        forceOneSeries.getData().add(new XYChart.Data<>("0", 0));
+        return forceOneChart;
+		
+	}
+	
+	private LineChart<String, Number> makeForceTwoGraph(){
+		final CategoryAxis  xAxis = new CategoryAxis(); 
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Time (s)");
+        xAxis.setAnimated(true); 
+        yAxis.setLabel("Force Two (N)");
+        yAxis.setAnimated(true); 
+        LineChart<String, Number> forceTwoChart = new LineChart<String, Number>(xAxis, yAxis);
+        forceTwoChart.setTitle("Force Two");
+        forceTwoChart.setAnimated(false);
+        forceTwoSeries.setName("Force Two Data");
+        forceTwoChart.getData().add(forceTwoSeries);
+        forceTwoSeries.getData().add(new XYChart.Data<>("0", 0));
+        return forceTwoChart;
+		
+	}
+	
+	private LineChart<String, Number> makeForceThreeGraph(){
+		final CategoryAxis  xAxis = new CategoryAxis(); 
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Time (s)");
+        xAxis.setAnimated(true); 
+        yAxis.setLabel("Force Three (N)");
+        yAxis.setAnimated(true); 
+        LineChart<String, Number> forceThreeChart = new LineChart<String, Number>(xAxis, yAxis);
+        forceThreeChart.setTitle("Force Three");
+        forceThreeChart.setAnimated(false);
+        forceThreeSeries.setName("Force Three Data");
+        forceThreeChart.getData().add(forceThreeSeries);
+        forceThreeSeries.getData().add(new XYChart.Data<>("0", 0));
+        return forceThreeChart;
 		
 	}
 	
@@ -120,8 +193,29 @@ public class TestStandUI {
 		//switchToRocketButton.setDisable(true); use this to disable when data is comming in.
 	}
 	
+	private void startButtonSettings() {
+		startDataRecord.minHeight(70);
+		startDataRecord.minWidth(150);
+		startDataRecord.setText("Start Recording Data");
+		
+	}
+	
+	private void stopButtonSettings() {
+		stopDataRecord.minHeight(70);
+		stopDataRecord.minWidth(150);
+		stopDataRecord.setText("Stop Recording Data");
+	}
+	
 	public Button getSwitchToRocketButton() {
 		return switchToRocketButton;
+	}
+	
+	public Button getStopTestButton() {
+		return stopDataRecord;
+	}
+	
+	public Button getStartTestButton() {
+		return startDataRecord;
 	}
 	
 	private void BuildUI() {
@@ -135,9 +229,17 @@ public class TestStandUI {
 		rightGraphVBox.setMinWidth(100);
 		
 		
+		
+		
 		//then add graphs and other boxes 
 		leftGraphVBox.getChildren().add(pressureChart);
+		leftGraphVBox.getChildren().add(forceOneChart);
+		rightGraphVBox.getChildren().add(forceTwoChart);
+		rightGraphVBox.getChildren().add(forceThreeChart);
+		
 		topHBox.getChildren().add(switchToRocketButton);
+		topHBox.getChildren().add(startDataRecord);
+		topHBox.getChildren().add(stopDataRecord);
 		
 	}
 	
